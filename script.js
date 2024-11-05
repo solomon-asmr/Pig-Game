@@ -17,7 +17,7 @@ let player0Score = player0E0.value;
 let player1Score = player0El.value;
 dice.classList.add('hidden');
 let current = 0;
-newGame.addEventListener('click', function () {
+const startNewGame = function () {
   player0E0.value = 0;
   player0El.value = 0;
   player0E0.textContent = '0';
@@ -28,7 +28,8 @@ newGame.addEventListener('click', function () {
     player1.classList.remove('player--active');
     player0.classList.add('player--active');
   }
-});
+};
+newGame.addEventListener('click', startNewGame);
 btnRoll.addEventListener('click', function () {
   const diceNumber = Math.floor(Math.random() * 6 + 1);
   let img = document.createElement('img');
@@ -89,17 +90,27 @@ btnHold.addEventListener('click', function () {
     current0.textContent = 0;
 
     player0Score += current;
+
     console.log('player 0 score value ' + player0Score);
     player0E0.textContent = player0Score;
     player1.classList.add('player--active');
     player0.classList.remove('player--active');
+    if (player0Score >= 100) {
+      alert('player 2 wins congratulations 🎉🎉🎉');
+      startNewGame();
+    }
     current = 0;
   } else {
     player1Score += current;
+
     current1.textContent = 0;
     player0El.textContent = player1Score;
     player1.classList.remove('player--active');
     player0.classList.add('player--active');
+    if (player1Score >= 100) {
+      alert('player 2 wins congratulations 🎉🎉🎉');
+      startNewGame();
+    }
     current = 0;
   }
 });
